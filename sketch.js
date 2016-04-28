@@ -105,14 +105,12 @@ function Clock() {
     if (h > 16) {
       fill(120, 12, 240);
       noStroke();
-      ellipse(this.clockX, this.clockY, clockRadius, clockRadius);
     } else {
-      fill(120, 12, 240);
+      fill(255, 255, 240);
       // strokeWeight(3);
       noStroke();
-      ellipse(this.clockX, this.clockY, this.clockRadius, this.clockRadius);
     }
-
+      ellipse(this.clockX, this.clockY, this.clockRadius, this.clockRadius);
 
     var st = h + ":" + m + ":" + s;
     fill(255);
