@@ -27,7 +27,7 @@ function draw() {
   background(0);
 
   if (weatherID == "rain") {
-   // console.log("it's raining");
+   //console.log("it's raining");
     rain.addParticle();
     rain.run();
   }
@@ -162,11 +162,14 @@ function gotWeather(weather) {
   var weatherDiv = createDiv("Weather: " + description).addClass("weather");
   // Make a vector
   //wind = p5.Vector.fromAngle(angle);
-
+console.log(groupID);
   if (groupID == "801" || groupID == "802" || groupID == "803" || groupID == "804") {
     weatherID = "clouds";
+    
 
-  } else if (groupID.charAt[0] == "2" || groupID.charAt[0] == "3" || groupID.charAt[0] == "5") {
+  } else if (groupID.charAt(0) == "2" || groupID.charAt(0) == "3" || groupID.charAt(0) == "5") {
     weatherID = "rain";
+  } else {
+    return null;
   }
 }
