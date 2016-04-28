@@ -3,10 +3,10 @@
 var position;
 var weatherCondition;
 var weatherID;
-var system;
+var rain;
 var life;
 var clouds = [];
-
+var sun;
 
 function setup() {
   createCanvas(windowWidth, windowHeight - .2 * (windowHeight));
@@ -15,10 +15,12 @@ function setup() {
   loadJSON(url, gotWeather);
   life = 500;
   var numClouds = 10;
-  system = new ParticleSystem(createVector(width / 2, 50));
+  rain = new ParticleSystem(createVector(width / 2, 50));
+  sun = new Sun();
   for (var i = 0; i < numClouds; i++) {
     clouds[i] = new Cloud();
   }
+  smooth();
 }
 
 function draw() {
@@ -26,14 +28,16 @@ function draw() {
 
   if (weatherID == "rain") {
    // console.log("it's raining");
-    system.addParticle();
-    system.run();
+    rain.addParticle();
+    rain.run();
   }
 
   if (weatherID == "clouds") {
     //console.log("it's cloudy");
-    
+      sun.update();
+      sun.display();
     for (var i = 0; i < clouds.length; i++) {
+      
       clouds[i].update()
       clouds[i].display();
       
@@ -48,6 +52,7 @@ function Cloud() {
   this.cloudLength = random(200,400);
   this.speed = random(0.1,1);
   this.opacity = random(240,255);
+  
   this.update = function() {
     this.x += this.speed;
   }
@@ -58,6 +63,24 @@ function Cloud() {
     ellipse(this.x, this.y, this.cloudLength, 50);
     ellipse(this.x - 25, this.y - 50, this.cloudLength / 2, this.cloudLength / 2);
     ellipse(this.x + 30, this.y - 50, this.cloudLength / 3, this.cloudLength / 3);
+  }
+}
+
+function Sun() {
+  
+  this.h = hour();
+  this.sizeR = width*.1;
+  this.x = 0; 
+  this.y = this.sizeR;
+  
+  
+  this.update = function() {
+    this.x = map(this.h,8,18,0, width);
+  }
+  
+  this.display = function() {
+    fill(255,255,0);
+    ellipse(this.x, this.y, this.sizeR, this.sizeR);
   }
 }
 
