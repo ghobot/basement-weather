@@ -1,4 +1,4 @@
-// A wind direction vector\
+//based on p5.js weather example and simple particle system example
 
 var position;
 var weatherCondition;
@@ -45,6 +45,7 @@ function draw() {
   }
 }
 
+//clouds
 function Cloud() {
 
   this.x = random(0, width);
@@ -66,6 +67,7 @@ function Cloud() {
   }
 }
 
+//Sun
 function Sun() {
   
   this.h = hour();
@@ -84,38 +86,7 @@ function Sun() {
   }
 }
 
-function gotWeather(weather) {
-  console.log(weather);
-  // Get the angle (convert to radians)
-  var angle = radians(Number(weather.wind.deg));
-  // Get the wind speed
-  var windmag = Number(weather.wind.speed);
-
-  // get the weather
-  var description = weather.weather[0].description;
-  var main = weather.weather[0].main;
-  var groupID = weather.weather[0].id.toString();
-  // Display as HTML elements
-
-  var temperatureDiv = createDiv(floor(weather.main.temp) + '&deg;');
-  //  var windDiv = createDiv("WIND " + windmag + " <small>MPH</small>");
-  var weatherDiv = createDiv("Weather: " + description).addClass("weather");
-  // Make a vector
-  //wind = p5.Vector.fromAngle(angle);
-
-  if (groupID == "801" || groupID == "802" || groupID == "803" || groupID == "804") {
-    weatherID = "clouds";
-
-  } else if (groupID.charAt[0] == "2" || groupID.charAt[0] == "3" || groupID.charAt[0] == "5") {
-    weatherID = "rain";
-  }
-}
-
-//clouds
-
-
-
-// A simple Particle class
+// A simple Particle class Rain
 var Particle = function(position) {
   this.acceleration = createVector(0, 0.05);
   this.velocity = createVector(random(-1, 1), random(-1, 0));
@@ -172,3 +143,30 @@ ParticleSystem.prototype.run = function() {
     }
   }
 };
+
+function gotWeather(weather) {
+  console.log(weather);
+  // Get the angle (convert to radians)
+  var angle = radians(Number(weather.wind.deg));
+  // Get the wind speed
+  var windmag = Number(weather.wind.speed);
+
+  // get the weather
+  var description = weather.weather[0].description;
+  var main = weather.weather[0].main;
+  var groupID = weather.weather[0].id.toString();
+  // Display as HTML elements
+
+  var temperatureDiv = createDiv(floor(weather.main.temp) + '&deg;');
+  //  var windDiv = createDiv("WIND " + windmag + " <small>MPH</small>");
+  var weatherDiv = createDiv("Weather: " + description).addClass("weather");
+  // Make a vector
+  //wind = p5.Vector.fromAngle(angle);
+
+  if (groupID == "801" || groupID == "802" || groupID == "803" || groupID == "804") {
+    weatherID = "clouds";
+
+  } else if (groupID.charAt[0] == "2" || groupID.charAt[0] == "3" || groupID.charAt[0] == "5") {
+    weatherID = "rain";
+  }
+}
