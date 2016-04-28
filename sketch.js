@@ -112,7 +112,7 @@ Particle.prototype.display = function() {
   stroke(200, this.lifespan);
   strokeWeight(0);
   var fade = map(this.lifespan, 0, life, 0, 255);
-  fill(0, 0, 255, this.lifespan);
+  fill(150, 150, 255, this.lifespan);
   ellipse(this.position.x, this.position.y, 10, 10);
 };
 
