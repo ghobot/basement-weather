@@ -11,7 +11,7 @@ var clouds = [];
 function setup() {
   createCanvas(windowWidth, windowHeight - .2 * (windowHeight));
   // Request the data from openweathermap
-  var url = 'http://api.openweathermap.org/data/2.5/weather?q=New%20York,NY&units=imperial&APPID=7bbbb47522848e8b9c26ba35c226c734';
+  var url = 'http://api.openweathermap.org/data/2.5/weather?zip=10016,us&units=imperial&APPID=7bbbb47522848e8b9c26ba35c226c734';
   loadJSON(url, gotWeather);
   life = 500;
   var numClouds = 10;
