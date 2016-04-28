@@ -7,6 +7,7 @@ var rain;
 var life;
 var clouds = [];
 var sun;
+var clock;
 
 function setup() {
   createCanvas(windowWidth, windowHeight - .2 * (windowHeight));
@@ -20,6 +21,7 @@ function setup() {
   for (var i = 0; i < numClouds; i++) {
     clouds[i] = new Cloud();
   }
+  clock = new Clock();
   smooth();
 }
 
@@ -27,20 +29,22 @@ function draw() {
   background(0);
 
   if (weatherID == "rain") {
-   //console.log("it's raining");
+    //console.log("it's raining");
     rain.addParticle();
     rain.run();
   }
 
+  clock.display ();
+
   if (weatherID == "clouds") {
     //console.log("it's cloudy");
-      sun.update();
-      sun.display();
+    sun.update();
+    sun.display();
     for (var i = 0; i < clouds.length; i++) {
-      
+
       clouds[i].update()
       clouds[i].display();
-      
+
     }
   }
 }
@@ -49,17 +53,17 @@ function draw() {
 function Cloud() {
 
   this.x = random(0, width);
-  this.y = random(height*.1,height * .3);
-  this.cloudLength = random(200,400);
-  this.speed = random(0.1,1);
-  this.opacity = random(240,255);
-  
+  this.y = random(height * .1, height * .3);
+  this.cloudLength = random(200, 400);
+  this.speed = random(0.1, 1);
+  this.opacity = random(240, 255);
+
   this.update = function() {
     this.x += this.speed;
   }
 
   this.display = function() {
-    fill(255,this.opacity);
+    fill(255, this.opacity);
     noStroke();
     ellipse(this.x, this.y, this.cloudLength, 50);
     ellipse(this.x - 25, this.y - 50, this.cloudLength / 2, this.cloudLength / 2);
@@ -69,21 +73,55 @@ function Cloud() {
 
 //Sun
 function Sun() {
-  
+
   this.h = hour();
-  this.sizeR = width*.1;
-  this.x = 0; 
+  this.sizeR = width * .1;
+  this.x = 0;
   this.y = this.sizeR;
-  
-  
+
   this.update = function() {
-    this.x = map(this.h,8,18,0, width);
+    this.x = map(this.h, 8, 18, 0, width);
   }
-  
+
   this.display = function() {
-    fill(255,255,0);
+    fill(255, 255, 0);
     ellipse(this.x, this.y, this.sizeR, this.sizeR);
   }
+}
+
+//clock
+function Clock() {
+
+  this.clockRadius = 214;
+  this.clockX = width - this.clockRadius;
+  this.clockY = height - this.clockRadius;
+
+  this.display = function() {
+
+    var s = second();
+    var m = minute(); // + norm(second(), 0, 60); 
+    var h = hour(); // + norm(minute(), 0, 60);
+
+    if (h > 16) {
+      fill(120, 12, 240);
+      noStroke();
+      ellipse(this.clockX, this.clockY, clockRadius, clockRadius);
+    } else {
+      fill(120, 12, 240);
+      // strokeWeight(3);
+      noStroke();
+      ellipse(this.clockX, this.clockY, this.clockRadius, this.clockRadius);
+    }
+
+
+    var st = h + ":" + m + ":" + s;
+    fill(255);
+    textSize(48);
+    noStroke();
+    text(st, width-this.clockRadius-90, height-this.clockRadius+20);
+
+  }
+
 }
 
 // A simple Particle class Rain
@@ -162,10 +200,10 @@ function gotWeather(weather) {
   var weatherDiv = createDiv("Weather: " + description).addClass("weather");
   // Make a vector
   //wind = p5.Vector.fromAngle(angle);
-console.log(groupID);
+  console.log(groupID);
   if (groupID == "801" || groupID == "802" || groupID == "803" || groupID == "804") {
     weatherID = "clouds";
-    
+
 
   } else if (groupID.charAt(0) == "2" || groupID.charAt(0) == "3" || groupID.charAt(0) == "5") {
     weatherID = "rain";
