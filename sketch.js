@@ -101,7 +101,7 @@ function Clock() {
     var s = second();
     var m = minute(); // + norm(second(), 0, 60); 
     var h = hour(); // + norm(minute(), 0, 60);
-
+    push();
     if (h > 16) {
       fill(120, 12, 240);
       noStroke();
@@ -110,14 +110,16 @@ function Clock() {
       // strokeWeight(3);
       noStroke();
     }
-      ellipse(this.clockX, this.clockY, this.clockRadius, this.clockRadius);
+    
+    ellipse(this.clockX, this.clockY, this.clockRadius, this.clockRadius);
 
     var st = h + ":" + m + ":" + s;
     fill(255);
     textSize(48);
     noStroke();
-    text(st, width-this.clockRadius-90, height-this.clockRadius+20);
-
+    textAlign(CENTER);
+    text(st, width-this.clockRadius, height-this.clockRadius+20);
+    pop();
   }
 
 }
