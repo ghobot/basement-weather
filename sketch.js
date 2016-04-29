@@ -106,7 +106,7 @@ function Clock() {
       fill(120, 12, 240);
       noStroke();
     } else {
-      fill(255, 255, 240);
+      fill(120, 12, 240);
       // strokeWeight(3);
       noStroke();
     }
