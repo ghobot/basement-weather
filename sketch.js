@@ -34,8 +34,6 @@ function draw() {
     rain.run();
   }
 
-  clock.display ();
-
   if (weatherID == "clouds") {
     //console.log("it's cloudy");
     sun.update();
@@ -47,6 +45,13 @@ function draw() {
 
     }
   }
+  
+   if (weatherID == "clear") {
+    sun.update();
+    sun.display();
+  }
+  
+  clock.display();
 }
 
 //clouds
@@ -207,6 +212,8 @@ function gotWeather(weather) {
 
   } else if (groupID.charAt(0) == "2" || groupID.charAt(0) == "3" || groupID.charAt(0) == "5") {
     weatherID = "rain";
+  } else if (groupID == "800") {
+    weatherID = "clear";
   } else {
     return null;
   }
