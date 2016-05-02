@@ -12,9 +12,10 @@ var clock;
 function setup() {
   createCanvas(windowWidth, windowHeight - .1 * (windowHeight));
   // Request the data from openweathermap
+  console.log("Window width: %s", windowWidth);
   var url = 'http://api.openweathermap.org/data/2.5/weather?zip=10016,us&units=imperial&APPID=7bbbb47522848e8b9c26ba35c226c734';
   loadJSON(url, gotWeather);
-  life = 500;
+  life = map(windowHeight,0,windowHeight*.6, 0,255);
   var numClouds = 10;
   rain = new ParticleSystem(createVector(width / 2, 50));
   sun = new Sun();
@@ -97,9 +98,10 @@ function Sun() {
 //clock
 function Clock() {
 
-  this.clockRadius = 400;
+  this.clockRadius = windowWidth*.2;
   this.clockX = width - this.clockRadius/2;
-  this.clockY = height - this.clockRadius/2 ;
+  this.clockY = height - this.clockRadius/2;
+  this.fontRatio = 22;
 
   this.display = function() {
 
@@ -120,10 +122,10 @@ function Clock() {
 
     var st = h + ":" + m + ":" + s;
     fill(255);
-    textSize(84);
+    textSize(windowWidth/this.fontRatio);
     noStroke();
     textAlign(CENTER);
-    text(st, this.clockX, this.clockY+20);
+    text(st, this.clockX, this.clockY+this.fontRatio);
     pop();
   }
 
@@ -136,6 +138,7 @@ var Particle = function(position) {
   //this.position = position.copy();
   this.position = (createVector(random(0, width), -10));
   this.lifespan = life;
+  this.particleSize = width/95;
 };
 
 Particle.prototype.run = function() {
@@ -156,7 +159,7 @@ Particle.prototype.display = function() {
   strokeWeight(0);
   var fade = map(this.lifespan, 0, life, 0, 255);
   fill(150, 150, 255, this.lifespan);
-  ellipse(this.position.x, this.position.y, 10, 10);
+  ellipse(this.position.x, this.position.y, this.particleSize, this.particleSize);
 };
 
 // Is the particle still useful?
