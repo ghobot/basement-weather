@@ -10,7 +10,7 @@ var sun;
 var clock;
 
 function setup() {
-  createCanvas(windowWidth, windowHeight - .2 * (windowHeight));
+  createCanvas(windowWidth, windowHeight - .1 * (windowHeight));
   // Request the data from openweathermap
   var url = 'http://api.openweathermap.org/data/2.5/weather?zip=10016,us&units=imperial&APPID=7bbbb47522848e8b9c26ba35c226c734';
   loadJSON(url, gotWeather);
@@ -97,9 +97,9 @@ function Sun() {
 //clock
 function Clock() {
 
-  this.clockRadius = 214;
-  this.clockX = width - this.clockRadius;
-  this.clockY = height - this.clockRadius;
+  this.clockRadius = 400;
+  this.clockX = width - this.clockRadius/2;
+  this.clockY = height - this.clockRadius/2 ;
 
   this.display = function() {
 
@@ -120,10 +120,10 @@ function Clock() {
 
     var st = h + ":" + m + ":" + s;
     fill(255);
-    textSize(48);
+    textSize(84);
     noStroke();
     textAlign(CENTER);
-    text(st, width-this.clockRadius, height-this.clockRadius+20);
+    text(st, this.clockX, this.clockY+20);
     pop();
   }
 
@@ -200,7 +200,7 @@ function gotWeather(weather) {
   var groupID = weather.weather[0].id.toString();
   // Display as HTML elements
 
-  var temperatureDiv = createDiv(floor(weather.main.temp) + '&deg;');
+  var temperatureDiv = createDiv(floor(weather.main.temp) + '&deg;').addClass("temp");
   //  var windDiv = createDiv("WIND " + windmag + " <small>MPH</small>");
   var weatherDiv = createDiv("Weather: " + description).addClass("weather");
   // Make a vector
