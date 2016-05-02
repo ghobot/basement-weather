@@ -15,7 +15,7 @@ function setup() {
   console.log("Window width: %s", windowWidth);
   var url = 'http://api.openweathermap.org/data/2.5/weather?zip=10016,us&units=imperial&APPID=7bbbb47522848e8b9c26ba35c226c734';
   loadJSON(url, gotWeather);
-  life = map(windowHeight,0,windowHeight*.6, 0,255);
+  life = map(windowHeight,0,windowHeight*.55, 0,255);
   var numClouds = 10;
   rain = new ParticleSystem(createVector(width / 2, 50));
   sun = new Sun();
